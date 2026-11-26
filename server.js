@@ -4,6 +4,9 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 
+const authRoutes = require('./routes/authRoutes');
+const productoRoutes = require('./routes/productoRoutes');
+
 const app = express();
 
 // Middlewares globales
@@ -15,6 +18,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/api/status', (req, res) => {
   res.json({ mensaje: 'Servidor funcionando correctamente' });
 });
+
+// Middlewares de rutas de recursos
+app.use('/api/auth', authRoutes);
+app.use('/api/productos', productoRoutes);
 
 // Iniciar servidor solo si se ejecuta directamente (no en pruebas con Jest)
 if (require.main === module) {

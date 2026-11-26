@@ -1,17 +1,10 @@
 const express = require('express');
+const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
 
-// Rutas públicas de autenticación (se conectarán al controlador en el inciso d)
-router.post('/register', (req, res) => {
-  res.json({ mensaje: 'Ruta de registro lista' });
-});
-
-router.post('/login', (req, res) => {
-  res.json({ mensaje: 'Ruta de inicio de sesión lista' });
-});
-
-router.post('/logout', (req, res) => {
-  res.json({ mensaje: 'Ruta de cierre de sesión lista' });
-});
+router.post('/register', authController.register);
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 module.exports = router;
