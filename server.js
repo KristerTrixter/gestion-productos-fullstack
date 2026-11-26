@@ -23,9 +23,13 @@ app.get('/api/status', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productoRoutes);
 
-// Iniciar servidor solo si se ejecuta directamente (no en pruebas con Jest)
-if (require.main === module) {
+// Conectar a MongoDB siempre que no estemos ejecutando pruebas con Jest
+if (process.env.NODE_ENV !== 'test') {
   connectDB();
+}
+
+// Iniciar servidor local solo si se ejecuta directamente
+if (require.main === module) {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
