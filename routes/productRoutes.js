@@ -1,29 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
+const productoController = require('../controllers/productoController');
 
-// Middleware de protección para todas las rutas de productos
+// Proteger todas las rutas de productos con JWT
 router.use(authMiddleware);
 
-// Rutas CRUD de productos (se conectarán al controlador en el inciso e)
-router.get('/', (req, res) => {
-  res.json({ mensaje: 'Obtener todos los productos' });
-});
-
-router.get('/:id', (req, res) => {
-  res.json({ mensaje: `Obtener producto ${req.params.id}` });
-});
-
-router.post('/', (req, res) => {
-  res.json({ mensaje: 'Crear nuevo producto' });
-});
-
-router.put('/:id', (req, res) => {
-  res.json({ mensaje: `Actualizar producto ${req.params.id}` });
-});
-
-router.delete('/:id', (req, res) => {
-  res.json({ mensaje: `Eliminar producto ${req.params.id}` });
-});
+router.get('/', productoController.obtenerProductos);
+router.get('/:id', productoController.obtenerProductoPorId);
+router.post('/', productoController.crearProducto);
+router.put('/:id', productoController.actualizarProducto);
+router.delete('/:id', productoController.eliminarProducto);
 
 module.exports = router;
